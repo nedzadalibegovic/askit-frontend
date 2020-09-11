@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 import Question from "../question";
+import styles from "./latest-questions.module.css";
 
 const LatestQuestions = () => {
   const [questions, setQuestions] = useState({});
@@ -21,7 +22,7 @@ const LatestQuestions = () => {
     <Container>
       <Row>
         <Col>
-          <h4 style={{ textAlign: "center" }}>Latest Questions</h4>
+          <h4 className={styles.headerstyle}>Latest Questions</h4>
         </Col>
       </Row>
       <Row>

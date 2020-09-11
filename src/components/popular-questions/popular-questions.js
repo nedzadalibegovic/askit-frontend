@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 import Question from "../question";
+import styles from "./popular-questions.module.css";
 
 const PopularQuestions = () => {
   const [questions, setQuestions] = useState({});
@@ -21,7 +22,7 @@ const PopularQuestions = () => {
     <Container>
       <Row>
         <Col>
-          <h4 style={{ textAlign: "center" }}>Popular Questions</h4>
+          <h4 className={styles.headerstyle}>Popular Questions</h4>
         </Col>
       </Row>
       <Row>

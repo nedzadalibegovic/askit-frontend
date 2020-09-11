@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import User from "../user/user";
+
+import User from "../user";
+import styles from "./top-users.module.css";
 
 const TopUsers = () => {
   const [users, setUsers] = useState({});
@@ -20,7 +22,7 @@ const TopUsers = () => {
     <Container>
       <Row>
         <Col>
-          <h4 style={{ textAlign: "center" }}>Top Users</h4>
+          <h4 className={styles.headerstyle}>Top Users</h4>
         </Col>
       </Row>
       <Row>
