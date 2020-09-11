@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Homepage from "./components/hompage";
+import Homepage from "./components/homepage";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
