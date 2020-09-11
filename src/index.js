@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Homepage from "./components/homepage";
 import NavigationBar from "./components/navigation-bar";
 import AuthContextProvider from "./contexts/auth";
+import Login from "./components/login";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.render(
       <AuthContextProvider>
         <NavigationBar />
         <Switch>
+          <Route component={Login} path="/login" exact />
           <Route component={Homepage} path="/" />
         </Switch>
       </AuthContextProvider>
