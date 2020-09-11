@@ -1,13 +1,23 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
+import LatestQuestions from "../latest-questions";
+import PopularQuestions from "../popular-questions";
+import TopUsers from "../top-users";
+
 function Homepage() {
   return (
     <Container>
       <Row>
-        <Col>1 of 3</Col>
-        <Col>2 of 3</Col>
-        <Col>3 of 3</Col>
+        <Col>
+          <LatestQuestions />
+        </Col>
+        <Col>
+          <TopUsers />
+        </Col>
+        <Col>
+          <PopularQuestions />
+        </Col>
       </Row>
     </Container>
   );

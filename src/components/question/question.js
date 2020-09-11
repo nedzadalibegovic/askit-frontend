@@ -1,7 +1,7 @@
 import React from "react";
 
 function Question() {
-  return <h1>Question?</h1>;
+  return <div>Question</div>;
 }
 
 export default Question;
