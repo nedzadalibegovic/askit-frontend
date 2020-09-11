@@ -7,7 +7,7 @@ import TopUsers from "../top-users";
 
 function Homepage() {
   return (
-    <Container>
+    <Container fluid>
       <Row>
         <Col>
           <LatestQuestions />
