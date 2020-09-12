@@ -11,7 +11,7 @@ const TopUsers = () => {
     const response = await fetch("http://localhost:3000/users/top");
     const json = await response.json();
 
-    setUsers(json);
+    if (response.ok) setUsers(json);
   };
 
   useEffect(() => {

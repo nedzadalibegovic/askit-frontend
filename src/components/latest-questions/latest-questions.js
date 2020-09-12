@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 
-import Question from "../question";
-import styles from "./latest-questions.module.css";
+import QuestionList from "../question-list";
 
 const LatestQuestions = () => {
-  const [questions, setQuestions] = useState({});
+  const [questions, setQuestions] = useState(null);
 
   const getLatestQuestions = async () => {
     const response = await fetch("http://localhost:3000/questions/latest");
     const json = await response.json();
 
-    setQuestions(json);
+    if (response.ok) setQuestions(json);
   };
 
   useEffect(() => {
@@ -19,29 +17,9 @@ const LatestQuestions = () => {
   }, []);
 
   return (
-    <Container>
-      <Row>
-        <Col>
-          <h4 className={styles.headerstyle}>Latest Questions</h4>
-        </Col>
-      </Row>
-      <Row>
-        {questions.results &&
-          questions.results.map((question) => (
-            <Question
-              key={question.QuestionID}
-              title={question.Title}
-              email={question.user.Email}
-              firstname={question.user.FirstName}
-              lastname={question.user.LastName}
-              body={question.Body}
-              likes={question.LikeCount}
-              dislikes={question.DislikeCount}
-              answers={question.AnswerCount}
-            />
-          ))}
-      </Row>
-    </Container>
+    questions && (
+      <QuestionList title="Latest Questions" questions={questions.results} />
+    )
   );
 };
 
