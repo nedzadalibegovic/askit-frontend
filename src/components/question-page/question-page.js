@@ -4,12 +4,14 @@ import { useParams } from "react-router-dom";
 
 import Question from "../question";
 import Answer from "../answer";
+import LoadMore from "../load-more";
 
 const QuestionPage = () => {
   const { id } = useParams();
 
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState(null);
+  const [page, setPage] = useState(1);
 
   const getQuestion = async () => {
     const response = await fetch(
@@ -20,13 +22,20 @@ const QuestionPage = () => {
     if (response.ok) setQuestion(json);
   };
 
-  const getAnswers = async () => {
+  const getAnswers = async (pageNum = 1) => {
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "/answers/" + id + "?user=true"
+      process.env.REACT_APP_API_URL +
+        "/answers/" +
+        id +
+        "?user=true&page=" +
+        (pageNum - 1)
     );
     const json = await response.json();
 
-    if (response.ok) setAnswers(json);
+    if (response.ok) {
+      setPage(pageNum);
+      setAnswers(json);
+    }
   };
 
   useEffect(() => {
@@ -67,6 +76,9 @@ const QuestionPage = () => {
               />
             ))}
         </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <LoadMore total={answers?.total} page={page} func={getAnswers} />
       </Row>
     </Container>
   );
