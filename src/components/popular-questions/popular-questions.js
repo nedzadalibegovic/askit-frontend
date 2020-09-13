@@ -6,7 +6,9 @@ const PopularQuestions = () => {
   const [questions, setQuestions] = useState(null);
 
   const getPopularQuestions = async () => {
-    const response = await fetch("http://localhost:3000/questions/popular");
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "/public/popular-questions"
+    );
     const json = await response.json();
 
     if (response.ok) setQuestions(json);

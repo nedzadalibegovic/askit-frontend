@@ -8,7 +8,9 @@ const TopUsers = () => {
   const [users, setUsers] = useState({});
 
   const getTopUsers = async () => {
-    const response = await fetch("http://localhost:3000/users/top");
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "/public/top-users"
+    );
     const json = await response.json();
 
     if (response.ok) setUsers(json);

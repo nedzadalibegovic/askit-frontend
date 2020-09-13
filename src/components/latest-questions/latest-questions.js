@@ -6,7 +6,9 @@ const LatestQuestions = () => {
   const [questions, setQuestions] = useState(null);
 
   const getLatestQuestions = async () => {
-    const response = await fetch("http://localhost:3000/questions/latest");
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "/public/latest-questions"
+    );
     const json = await response.json();
 
     if (response.ok) setQuestions(json);
