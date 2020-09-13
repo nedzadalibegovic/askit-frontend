@@ -2,22 +2,32 @@ import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 import { AuthContext } from "../../contexts/auth";
+import LoadMore from "../load-more";
 import Question from "../question";
 import styles from "./my-questions.module.css";
 
 const MyQuestions = () => {
   const [questions, setQuestions] = useState(null);
+  const [activePage, setActivePage] = useState(1);
+
   const { token, setToken } = useContext(AuthContext);
 
-  const getMyQuestions = async () => {
-    const response = await fetch(process.env.REACT_APP_API_URL + "/questions", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  const getMyQuestions = async (pageNum = 1) => {
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "/questions?page=" + (pageNum - 1),
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const json = await response.json();
 
-    if (response.ok) setQuestions(json);
+    if (response.ok) {
+      setQuestions(json);
+      setActivePage(pageNum);
+    }
+
     if (response.status === 401) setToken(null);
   };
 
@@ -47,6 +57,13 @@ const MyQuestions = () => {
               />
             ))}
         </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <LoadMore
+          total={questions?.total}
+          page={activePage}
+          func={getMyQuestions}
+        />
       </Row>
     </Container>
   );
