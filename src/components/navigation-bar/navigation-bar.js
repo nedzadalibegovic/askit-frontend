@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Navbar, Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 import styles from "./navigation-bar.module.css";
 import { AuthContext } from "../../contexts/auth";
-import { LinkContainer } from "react-router-bootstrap";
 
 const NavigationBar = () => {
   const { token } = useContext(AuthContext);
@@ -14,11 +14,8 @@ const NavigationBar = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <LinkContainer to="/">
+          <LinkContainer to="/" exact>
             <Nav.Link>Home</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/questions">
-            <Nav.Link>Questions</Nav.Link>
           </LinkContainer>
           {token && (
             <LinkContainer to="/my-questions">

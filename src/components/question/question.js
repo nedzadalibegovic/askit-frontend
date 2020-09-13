@@ -1,5 +1,6 @@
 import React from "react";
 import { Media, Card, Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import Ratings from "../ratings";
 import styles from "./question.module.css";
@@ -13,6 +14,7 @@ const Question = ({
   likes,
   dislikes,
   answers,
+  id,
 }) => {
   return (
     <Media className={styles.question}>
@@ -27,7 +29,11 @@ const Question = ({
           </Card.Body>
           <Card.Footer>
             <Row>
-              <Col>View answers ({answers})</Col>
+              <Col>
+                {id && (
+                  <Link to={`/question/${id}`}>View answers ({answers})</Link>
+                )}
+              </Col>
               <Col className={styles.ratings}>
                 <Ratings likes={likes} dislikes={dislikes} />
               </Col>

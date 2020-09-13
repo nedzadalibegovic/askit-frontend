@@ -24,6 +24,7 @@ const QuestionList = ({ title, questions }) => {
             likes={question.LikeCount}
             dislikes={question.DislikeCount}
             answers={question.AnswerCount}
+            id={question.QuestionID}
           />
         ))}
       </Row>

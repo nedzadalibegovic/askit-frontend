@@ -17,8 +17,8 @@ const AuthContextProvider = (props) => {
   };
 
   useEffect(() => {
-    getAccessToken();
-  }, []);
+    if (!token) getAccessToken();
+  }, [token]);
 
   return (
     <AuthContext.Provider value={{ token, setToken }}>
