@@ -13,33 +13,24 @@ const QuestionPage = () => {
   const { id } = useParams();
   const history = useHistory();
 
-  const { token } = useContext(AuthContext);
+  const { token, apiCall } = useContext(AuthContext);
 
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState(null);
   const [page, setPage] = useState(1);
 
   const getQuestion = async () => {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "/questions/" + id + "?user=true"
-    );
+    const response = await apiCall("/questions", id, "user=true");
     const json = await response.json();
 
     if (response.ok) setQuestion(json);
   };
 
   const getAnswers = async (pageNum = 1) => {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL +
-        "/answers/" +
-        id +
-        "?user=true&page=" +
-        (pageNum - 1),
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await apiCall(
+      "/answers",
+      id,
+      "user=true&page=" + (pageNum - 1)
     );
     const json = await response.json();
 
@@ -50,19 +41,12 @@ const QuestionPage = () => {
   };
 
   const postAnswer = async ({ Body }) => {
-    const response = await fetch(process.env.REACT_APP_API_URL + "/answers", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        QuestionID: question.QuestionID,
-        Body: Body,
-      }),
+    const response = await apiCall("/answers", "", "", "POST", {
+      QuestionID: question.QuestionID,
+      Body: Body,
     });
 
-    if (response.ok) history.go(0);
+    if (response.ok) history.go();
   };
 
   useEffect(() => {

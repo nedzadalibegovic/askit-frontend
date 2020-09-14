@@ -8,36 +8,22 @@ import TextBox from "../textbox";
 import styles from "./my-answer.module.css";
 
 const MyAnswer = ({ body, likes, dislikes, questionId }) => {
-  const { token } = useContext(AuthContext);
+  const { token, apiCall } = useContext(AuthContext);
   const history = useHistory();
 
   const [editing, setEditing] = useState(false);
 
   const editAnswer = async ({ Body }) => {
-    const response = await fetch(process.env.REACT_APP_API_URL + "/answers", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        QuestionID: questionId,
-        Body: Body,
-      }),
+    const response = await apiCall("/answers", "", "", "PUT", {
+      QuestionID: questionId,
+      Body: Body,
     });
 
     if (response.ok) history.go();
   };
 
   const deleteAnswer = async () => {
-    const response = await fetch(process.env.REACT_APP_API_URL + "/answers", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ QuestionID: questionId }),
-    });
+    const response = await apiCall("/answers", questionId, "", "DELETE");
 
     if (response.ok) history.go();
   };

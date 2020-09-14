@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import QuestionList from "../question-list";
+import { AuthContext } from "../../contexts/auth";
 
 const PopularQuestions = () => {
+  const { apiCall } = useContext(AuthContext);
+
   const getPopularQuestions = async (pageNum = 1) => {
-    return fetch(
-      process.env.REACT_APP_API_URL +
-        "/public/popular-questions?page=" +
-        (pageNum - 1)
-    );
+    return apiCall("/public", "popular-questions", "page" + (pageNum - 1));
   };
 
   return (

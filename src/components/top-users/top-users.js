@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 import User from "../user";
 import styles from "./top-users.module.css";
+import { AuthContext } from "../../contexts/auth";
 
 const TopUsers = () => {
   const [users, setUsers] = useState({});
+  const { apiCall } = useContext(AuthContext);
 
   const getTopUsers = async () => {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "/public/top-users"
-    );
+    const response = await apiCall("/public", "top-users");
     const json = await response.json();
 
     if (response.ok) setUsers(json);

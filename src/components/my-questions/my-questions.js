@@ -10,25 +10,16 @@ const MyQuestions = () => {
   const [questions, setQuestions] = useState(null);
   const [activePage, setActivePage] = useState(1);
 
-  const { token, setToken } = useContext(AuthContext);
+  const { token, apiCall } = useContext(AuthContext);
 
   const getMyQuestions = async (pageNum = 1) => {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "/questions?page=" + (pageNum - 1),
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await apiCall("/questions", "", "page=" + (pageNum - 1));
     const json = await response.json();
 
     if (response.ok) {
       setQuestions(json);
       setActivePage(pageNum);
     }
-
-    if (response.status === 401) setToken(null);
   };
 
   useEffect(() => {
