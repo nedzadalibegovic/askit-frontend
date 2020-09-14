@@ -17,7 +17,6 @@ const Answer = ({ email, firstname, lastname, body, likes, dislikes }) => {
           </Card.Body>
           <Card.Footer>
             <Row>
-              <Col>Edit / Delete</Col>
               <Col className={styles.ratings}>
                 <Ratings likes={likes} dislikes={dislikes} />
               </Col>

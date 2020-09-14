@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import Question from "../question";
 import Answer from "../answer";
 import LoadMore from "../load-more";
+import { AuthContext } from "../../contexts/auth";
+import TextBox from "../textbox";
+import MyAnswer from "../my-answer/my-answer";
 
 const QuestionPage = () => {
   const { id } = useParams();
+  const history = useHistory();
+
+  const { token } = useContext(AuthContext);
 
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState(null);
@@ -28,7 +34,12 @@ const QuestionPage = () => {
         "/answers/" +
         id +
         "?user=true&page=" +
-        (pageNum - 1)
+        (pageNum - 1),
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     const json = await response.json();
 
@@ -38,10 +49,26 @@ const QuestionPage = () => {
     }
   };
 
+  const postAnswer = async ({ Body }) => {
+    const response = await fetch(process.env.REACT_APP_API_URL + "/answers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        QuestionID: question.QuestionID,
+        Body: Body,
+      }),
+    });
+
+    if (response.ok) history.go(0);
+  };
+
   useEffect(() => {
     getQuestion();
     getAnswers();
-  }, []);
+  }, [token]);
 
   return (
     <Container>
@@ -61,6 +88,22 @@ const QuestionPage = () => {
           )}
         </Col>
       </Row>
+      {token && (
+        <Row className="justify-content-center">
+          <Col lg="7" md="8">
+            {answers?.my ? (
+              <MyAnswer
+                body={answers.my.Body}
+                likes={answers.my.LikeCount}
+                dislikes={answers.my.DislikeCount}
+                questionId={answers.my.QuestionID}
+              />
+            ) : (
+              <TextBox submitFunc={postAnswer} />
+            )}
+          </Col>
+        </Row>
+      )}
       <Row className="justify-content-center">
         <Col lg="7" md="8">
           {answers &&

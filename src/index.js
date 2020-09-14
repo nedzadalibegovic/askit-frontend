@@ -18,7 +18,7 @@ ReactDOM.render(
         <Switch>
           <Route component={Login} path="/login" exact />
           <Route component={MyQuestions} path="/my-questions" exact />
-          <Route component={QuestionPage} path="/question/:id" />
+          <Route component={QuestionPage} path="/question/:id" exact />
           <Route component={Homepage} path="/" />
         </Switch>
       </AuthContextProvider>
