@@ -12,7 +12,9 @@ const User = ({ firstname, lastname, email, answers }) => {
           <PersonCircle width={64} height={64} />
         </Card.Header>
         <Card.Body>
-          <Card.Title>{firstname + " " + lastname}</Card.Title>
+          {firstname && lastname && (
+            <Card.Title>{firstname + " " + lastname}</Card.Title>
+          )}
           <Card.Subtitle className="mb-2 text-muted">{email}</Card.Subtitle>
           <Card.Text>Answers submitted: {answers}</Card.Text>
         </Card.Body>
