@@ -87,7 +87,7 @@ const QuestionPage = () => {
                 ratings={answers.my.ratings}
               />
             ) : (
-              <TextBox submitFunc={postAnswer} />
+              <TextBox submitFunc={postAnswer} buttonText="Give answer" />
             )}
           </Col>
         </Row>

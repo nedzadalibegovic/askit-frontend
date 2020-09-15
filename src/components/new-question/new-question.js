@@ -12,11 +12,12 @@ import {
   Media,
 } from "react-bootstrap";
 
-import styles from "./textbox.module.css";
+import styles from "./new-question.module.css";
 
-const TextBox = ({ submitFunc, buttonText = "Post", body = "" }) => {
+const NewQuestion = ({ submitFunc }) => {
   const schema = yup.object({
-    Body: yup.string().required(),
+    Title: yup.string().required(),
+    Body: yup.string(),
   });
 
   return (
@@ -28,7 +29,7 @@ const TextBox = ({ submitFunc, buttonText = "Post", body = "" }) => {
               <Row>
                 <Col style={{ padding: "0px" }}>
                   <Formik
-                    initialValues={{ Body: body }}
+                    initialValues={{ Title: "", Body: "" }}
                     onSubmit={submitFunc}
                     validationSchema={schema}
                     initialStatus={""}
@@ -43,6 +44,23 @@ const TextBox = ({ submitFunc, buttonText = "Post", body = "" }) => {
                     }) => (
                       <Form noValidate onSubmit={handleSubmit}>
                         <Form.Group>
+                          <Form.Label>Title</Form.Label>
+                          <Form.Control
+                            id="Title"
+                            name="Title"
+                            type="text"
+                            value={values.Title}
+                            onChange={handleChange}
+                            isInvalid={touched.Title && errors.Title}
+                            placeholder="What is the airspeed velocity of an unladen swallow?"
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {errors.Title}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group>
+                          <Form.Label>Body</Form.Label>
                           <Form.Control
                             as="textarea"
                             id="Body"
@@ -52,6 +70,7 @@ const TextBox = ({ submitFunc, buttonText = "Post", body = "" }) => {
                             onChange={handleChange}
                             isInvalid={touched.Body && errors.Body}
                             rows="3"
+                            placeholder="What do you mean? African or European swallow?"
                           />
                           <Form.Control.Feedback type="invalid">
                             {errors.Body}
@@ -61,7 +80,7 @@ const TextBox = ({ submitFunc, buttonText = "Post", body = "" }) => {
                         {status && <Alert variant="danger">{status}</Alert>}
 
                         <Button variant="outline-dark" type="submit" block>
-                          {buttonText}
+                          Ask question
                         </Button>
                       </Form>
                     )}
@@ -76,4 +95,4 @@ const TextBox = ({ submitFunc, buttonText = "Post", body = "" }) => {
   );
 };
 
-export default TextBox;
+export default NewQuestion;
