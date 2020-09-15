@@ -35,22 +35,24 @@ const QuestionList = ({ title, fetchFunc }) => {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        {questions?.results.map((question) => (
-          <Question
-            key={question.QuestionID}
-            title={question.Title}
-            email={question.user.Email}
-            firstname={question.user.FirstName}
-            lastname={question.user.LastName}
-            body={question.Body}
-            likes={question.LikeCount}
-            dislikes={question.DislikeCount}
-            answers={question.AnswerCount}
-            questionId={question.QuestionID}
-            showLink
-            ratings={question.ratings}
-          />
-        ))}
+        <Col style={{ padding: "0px" }}>
+          {questions?.results.map((question) => (
+            <Question
+              key={question.QuestionID}
+              title={question.Title}
+              email={question.user.Email}
+              firstname={question.user.FirstName}
+              lastname={question.user.LastName}
+              body={question.Body}
+              likes={question.LikeCount}
+              dislikes={question.DislikeCount}
+              answers={question.AnswerCount}
+              questionId={question.QuestionID}
+              showLink
+              ratings={question.ratings}
+            />
+          ))}
+        </Col>
       </Row>
       <Row className="justify-content-center">
         <LoadMore

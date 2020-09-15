@@ -35,7 +35,11 @@ const MyAnswer = ({ body, likes, dislikes, questionId, userId, ratings }) => {
           <Card.Body>
             <Card.Subtitle className="mb-2">Your answer</Card.Subtitle>
             {editing ? (
-              <TextBox submitFunc={editAnswer} body={body} />
+              <TextBox
+                submitFunc={editAnswer}
+                body={body}
+                buttonText="Save edit"
+              />
             ) : (
               <Card.Text>{body}</Card.Text>
             )}
