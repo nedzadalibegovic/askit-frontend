@@ -7,7 +7,7 @@ const LatestQuestions = () => {
   const { apiCall } = useContext(AuthContext);
 
   const getLatestQuestions = async (pageNum = 1) => {
-    return apiCall("/public/", "latest-questions", "page=" + (pageNum - 1));
+    return apiCall("/public", "latest-questions", "page=" + (pageNum - 1));
   };
 
   return (

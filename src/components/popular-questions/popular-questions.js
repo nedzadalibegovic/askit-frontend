@@ -7,7 +7,7 @@ const PopularQuestions = () => {
   const { apiCall } = useContext(AuthContext);
 
   const getPopularQuestions = async (pageNum = 1) => {
-    return apiCall("/public", "popular-questions", "page" + (pageNum - 1));
+    return apiCall("/public", "popular-questions", "page=" + (pageNum - 1));
   };
 
   return (

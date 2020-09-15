@@ -68,6 +68,8 @@ const QuestionPage = () => {
               likes={question.LikeCount}
               dislikes={question.DislikeCount}
               answers={question.AnswerCount}
+              questionId={question.QuestionID}
+              ratings={question.ratings}
             />
           )}
         </Col>
@@ -81,6 +83,8 @@ const QuestionPage = () => {
                 likes={answers.my.LikeCount}
                 dislikes={answers.my.DislikeCount}
                 questionId={answers.my.QuestionID}
+                userId={answers.my.UserID}
+                ratings={answers.my.ratings}
               />
             ) : (
               <TextBox submitFunc={postAnswer} />
@@ -100,6 +104,9 @@ const QuestionPage = () => {
                 likes={answer.LikeCount}
                 dislikes={answer.DislikeCount}
                 key={[answer.QuestionID, answer.UserID]}
+                questionId={answer.QuestionID}
+                userId={answer.UserID}
+                ratings={answer.ratings}
               />
             ))}
         </Col>

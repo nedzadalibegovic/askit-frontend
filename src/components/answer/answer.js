@@ -4,7 +4,17 @@ import { Media, Card, Row, Col } from "react-bootstrap";
 import Ratings from "../ratings";
 import styles from "./answer.module.css";
 
-const Answer = ({ email, firstname, lastname, body, likes, dislikes }) => {
+const Answer = ({
+  email,
+  firstname,
+  lastname,
+  body,
+  likes,
+  dislikes,
+  questionId,
+  userId,
+  ratings,
+}) => {
   return (
     <Media className={styles.answer}>
       <Media.Body>
@@ -18,7 +28,14 @@ const Answer = ({ email, firstname, lastname, body, likes, dislikes }) => {
           <Card.Footer>
             <Row>
               <Col className={styles.ratings}>
-                <Ratings likes={likes} dislikes={dislikes} />
+                <Ratings
+                  likes={likes}
+                  dislikes={dislikes}
+                  questionId={questionId}
+                  userId={userId}
+                  type="answer"
+                  ratings={ratings}
+                />
               </Col>
             </Row>
           </Card.Footer>

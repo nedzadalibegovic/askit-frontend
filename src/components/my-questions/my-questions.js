@@ -44,7 +44,9 @@ const MyQuestions = () => {
                 likes={question.LikeCount}
                 dislikes={question.DislikeCount}
                 answers={question.AnswerCount}
-                id={question.QuestionID}
+                ratings={question.ratings}
+                questionId={question.QuestionID}
+                showLink
               />
             ))}
         </Col>

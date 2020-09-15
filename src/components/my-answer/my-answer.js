@@ -7,8 +7,8 @@ import Ratings from "../ratings";
 import TextBox from "../textbox";
 import styles from "./my-answer.module.css";
 
-const MyAnswer = ({ body, likes, dislikes, questionId }) => {
-  const { token, apiCall } = useContext(AuthContext);
+const MyAnswer = ({ body, likes, dislikes, questionId, userId, ratings }) => {
+  const { apiCall } = useContext(AuthContext);
   const history = useHistory();
 
   const [editing, setEditing] = useState(false);
@@ -31,7 +31,7 @@ const MyAnswer = ({ body, likes, dislikes, questionId }) => {
   return (
     <Media className={styles.answer}>
       <Media.Body>
-        <Card bg="info" text="white">
+        <Card bg="dark" text="white" border="primary">
           <Card.Body>
             <Card.Subtitle className="mb-2">Your answer</Card.Subtitle>
             {editing ? (
@@ -59,7 +59,14 @@ const MyAnswer = ({ body, likes, dislikes, questionId }) => {
                 </Card.Link>
               </Col>
               <Col className={styles.ratings}>
-                <Ratings likes={likes} dislikes={dislikes} />
+                <Ratings
+                  likes={likes}
+                  dislikes={dislikes}
+                  questionId={questionId}
+                  userId={userId}
+                  type="answer"
+                  ratings={ratings}
+                />
               </Col>
             </Row>
           </Card.Footer>

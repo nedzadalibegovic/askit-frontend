@@ -14,7 +14,9 @@ const Question = ({
   likes,
   dislikes,
   answers,
-  id,
+  questionId,
+  showLink,
+  ratings
 }) => {
   return (
     <Media className={styles.question}>
@@ -30,12 +32,20 @@ const Question = ({
           <Card.Footer>
             <Row>
               <Col>
-                {id && (
-                  <Link to={`/question/${id}`}>View answers ({answers})</Link>
+                {showLink && (
+                  <Link to={`/question/${questionId}`}>
+                    View answers ({answers})
+                  </Link>
                 )}
               </Col>
               <Col className={styles.ratings}>
-                <Ratings likes={likes} dislikes={dislikes} />
+                <Ratings
+                  likes={likes}
+                  dislikes={dislikes}
+                  questionId={questionId}
+                  type={"question"}
+                  ratings={ratings}
+                />
               </Col>
             </Row>
           </Card.Footer>

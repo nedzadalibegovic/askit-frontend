@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 import Question from "../question";
 import styles from "./question-list.module.css";
 import LoadMore from "../load-more";
+import { AuthContext } from "../../contexts/auth";
 
 const QuestionList = ({ title, fetchFunc }) => {
-  const [questions, setQuestions] = useState(null);
+  const [questions, setQuestions] = useState();
   const [activePage, setActivePage] = useState(1);
 
+  const { token } = useContext(AuthContext);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchQuestions = async (pageNum = 1) => {
     const response = await fetchFunc(pageNum);
     const json = await response.json();
@@ -21,7 +25,7 @@ const QuestionList = ({ title, fetchFunc }) => {
 
   useEffect(() => {
     fetchQuestions();
-  }, []);
+  }, [token]);
 
   return (
     <Container>
@@ -42,7 +46,9 @@ const QuestionList = ({ title, fetchFunc }) => {
             likes={question.LikeCount}
             dislikes={question.DislikeCount}
             answers={question.AnswerCount}
-            id={question.QuestionID}
+            questionId={question.QuestionID}
+            showLink
+            ratings={question.ratings}
           />
         ))}
       </Row>
