@@ -48,7 +48,12 @@ const Register = () => {
       <Row className="justify-content-center">
         <Col md="7" lg="5">
           <Formik
-            initialValues={{ Email: "", Password: "" }}
+            initialValues={{
+              FirstName: "",
+              LastName: "",
+              Email: "",
+              Password: "",
+            }}
             onSubmit={doRegister}
             validationSchema={schema}
             initialStatus={""}
@@ -115,7 +120,7 @@ const Register = () => {
                   <Form.Control
                     id="Password"
                     name="Password"
-                    type="Password"
+                    type="password"
                     placeholder="Correct Horse Battery Staple"
                     value={values.Password}
                     onChange={handleChange}

@@ -82,7 +82,7 @@ const Login = () => {
                   <Form.Control
                     id="Password"
                     name="Password"
-                    type="Password"
+                    type="password"
                     placeholder="Password"
                     value={values.Password}
                     onChange={handleChange}
