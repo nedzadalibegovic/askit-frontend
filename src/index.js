@@ -11,6 +11,7 @@ import MyQuestions from "./components/my-questions";
 import QuestionPage from "./components/question-page";
 import Register from "./components/register";
 import Profile from "./components/profile";
+import PrivateRoute from "./components/private-route";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,9 +21,13 @@ ReactDOM.render(
         <Switch>
           <Route component={Register} path="/register" exact />
           <Route component={Login} path="/login" exact />
-          <Route component={MyQuestions} path="/my-questions" exact />
+          <PrivateRoute path="/my-questions" exact>
+            <MyQuestions />
+          </PrivateRoute>
           <Route component={QuestionPage} path="/question/:id" exact />
-          <Route component={Profile} path="/profile" exact />
+          <PrivateRoute path="/profile" exact>
+            <Profile />
+          </PrivateRoute>
           <Route component={Homepage} path="/" />
         </Switch>
       </AuthContextProvider>
