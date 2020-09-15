@@ -6,7 +6,7 @@ import styles from "./navigation-bar.module.css";
 import { AuthContext } from "../../contexts/auth";
 
 const NavigationBar = () => {
-  const { token } = useContext(AuthContext);
+  const { token, logout } = useContext(AuthContext);
 
   return (
     <Navbar bg="light" expand="lg" className={styles.navbar}>
@@ -30,7 +30,9 @@ const NavigationBar = () => {
         </Nav>
         {token ? (
           <Nav>
-            <Nav.Link>Logout</Nav.Link>
+            <LinkContainer to="/">
+              <Nav.Link onClick={logout}>Logout</Nav.Link>
+            </LinkContainer>
           </Nav>
         ) : (
           <Nav>

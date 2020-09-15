@@ -14,6 +14,15 @@ const AuthContextProvider = (props) => {
     if (response.ok) setToken(accessToken);
   };
 
+  const logout = async () => {
+    const response = await fetch(process.env.REACT_APP_API_URL + "/login", {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    if (response.ok) setToken("");
+  };
+
   const apiCall = async (
     path,
     param = "",
@@ -47,7 +56,7 @@ const AuthContextProvider = (props) => {
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ token, setToken, apiCall }}>
+    <AuthContext.Provider value={{ token, setToken, apiCall, logout }}>
       {props.children}
     </AuthContext.Provider>
   );
