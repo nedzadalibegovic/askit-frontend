@@ -9,6 +9,7 @@ import AuthContextProvider from "./contexts/auth";
 import Login from "./components/login";
 import MyQuestions from "./components/my-questions";
 import QuestionPage from "./components/question-page";
+import Register from "./components/register/register";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.render(
       <AuthContextProvider>
         <NavigationBar />
         <Switch>
+          <Route component={Register} path="/register" exact />
           <Route component={Login} path="/login" exact />
           <Route component={MyQuestions} path="/my-questions" exact />
           <Route component={QuestionPage} path="/question/:id" exact />
