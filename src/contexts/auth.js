@@ -4,6 +4,7 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
   const [token, setToken] = useState("");
+  const [rejected, setRejected] = useState(false);
 
   const getAccessToken = async () => {
     const response = await fetch(process.env.REACT_APP_API_URL + "/token", {
@@ -12,6 +13,7 @@ const AuthContextProvider = (props) => {
     const { accessToken } = await response.json();
 
     if (response.ok) setToken(accessToken);
+    if (response.status === 401) setRejected(true);
   };
 
   const logout = async () => {
@@ -20,7 +22,10 @@ const AuthContextProvider = (props) => {
       credentials: "include",
     });
 
-    if (response.ok) setToken("");
+    if (response.ok) {
+      setToken("");
+      setRejected(true);
+    }
   };
 
   const apiCall = async (
@@ -56,7 +61,9 @@ const AuthContextProvider = (props) => {
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ token, setToken, apiCall, logout }}>
+    <AuthContext.Provider
+      value={{ token, setToken, apiCall, logout, rejected, setRejected }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

@@ -3,18 +3,18 @@ import { Route, Redirect } from "react-router-dom";
 
 import { AuthContext } from "../../contexts/auth";
 
-// PrivateRoute is used to deny access for anonymous/public users
-const PrivateRoute = ({ children, ...rest }) => {
+// RestrictedRoute is used to deny access to logged in users
+const RestrictedRoute = ({ children, ...rest }) => {
   const { rejected } = useContext(AuthContext);
 
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        rejected === true ? (
+        rejected === false ? (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: "/",
               state: { from: location },
             }}
           />
@@ -26,4 +26,4 @@ const PrivateRoute = ({ children, ...rest }) => {
   );
 };
 
-export default PrivateRoute;
+export default RestrictedRoute;

@@ -8,7 +8,7 @@ import { AuthContext } from "../../contexts/auth";
 import styles from "./login.module.css";
 
 const Login = () => {
-  const { setToken } = useContext(AuthContext);
+  const { setToken, setRejected } = useContext(AuthContext);
   const history = useHistory();
 
   const schema = yup.object({
@@ -30,7 +30,8 @@ const Login = () => {
     if (response.ok) {
       // refreshToken should be automatically saved to browser as a cookie
       setToken(json.accessToken);
-      history.push("/");
+      setRejected(false);
+      history.push("/my-questions");
     } else {
       resetForm();
       setStatus(json.message);
