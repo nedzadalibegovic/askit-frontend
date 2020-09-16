@@ -12,12 +12,14 @@ import QuestionPage from "./components/question-page";
 import Register from "./components/register";
 import Profile from "./components/profile";
 import PrivateRoute from "./components/private-route";
-import RestrictedRoute from "./components/restricted-route/restricted-route";
+import RestrictedRoute from "./components/restricted-route";
+import NotifcationHandler from "./components/notification-handler";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <AuthContextProvider>
+        <NotifcationHandler />
         <NavigationBar />
         <Switch>
           <RestrictedRoute path="/register" exact>
