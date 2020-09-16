@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Media } from "react-bootstrap";
 import { HandThumbsUp, HandThumbsDown } from "react-bootstrap-icons";
 
-import styles from "./ratings.module.css";
 import { AuthContext } from "../../contexts/auth";
 
 const Ratings = ({
@@ -50,6 +49,29 @@ const Ratings = ({
     }
   };
 
+  const changeRating = async (rating) => {
+    const response = await apiCall("/ratings", type, "", "PUT", {
+      QuestionID: questionId,
+      UserID: userId,
+      Rating: rating,
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      setRated(true);
+
+      if (json.Rating === "Like") {
+        setLikeCount(likeCount + 1);
+        setDislikeCount(dislikeCount - 1);
+        setLiked(true);
+      } else {
+        setLikeCount(likeCount - 1);
+        setDislikeCount(dislikeCount + 1);
+        setLiked(false);
+      }
+    }
+  };
+
   const deleteRating = async () => {
     const response = await apiCall("/ratings", type, "", "DELETE", {
       QuestionID: questionId,
@@ -76,6 +98,7 @@ const Ratings = ({
           onClick={() => {
             if (token && !rated) sendRating("Like");
             if (token && rated && liked) deleteRating();
+            if (token && rated && !liked) changeRating("Like");
           }}
           className={token && rated && liked ? "text-success" : ""}
           style={token ? { cursor: "pointer" } : {}}
@@ -91,6 +114,7 @@ const Ratings = ({
           onClick={() => {
             if (token && !rated) sendRating("Dislike");
             if (token && rated && !liked) deleteRating();
+            if (token && rated && liked) changeRating("Dislike");
           }}
           className={token && rated && !liked ? "text-danger" : ""}
           style={token ? { cursor: "pointer" } : {}}
